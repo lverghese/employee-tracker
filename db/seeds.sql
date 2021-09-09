@@ -1,4 +1,11 @@
-INSERT INTO role (title, salary)
+INSERT INTO department (label)
+VALUES  
+    ('Engineering'),
+    ('Finance'),
+    ('Sales'),
+    ('Legal')
+
+INSERT INTO roles (title, salary)
 VALUES 
     ('Lead Engineer', 150000),
     ('Lawyer', 120000),
@@ -6,7 +13,7 @@ VALUES
     ('Sales Manager', 85000),
     ('Software Engineer', 115000),
     ('Sales Person', 50000),
-    ('HR Representative', 90000),
+    ('Legal Team Lead', 140000),
     ('Accountant', 110000)
   
 
