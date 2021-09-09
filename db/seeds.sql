@@ -3,30 +3,30 @@ VALUES
     ('Engineering'),
     ('Finance'),
     ('Sales'),
-    ('Legal')
+    ('Legal');
 
-INSERT INTO roles (title, salary)
+INSERT INTO roles (title, salary, department_id)
 VALUES 
-    ('Lead Engineer', 150000),
-    ('Lawyer', 120000),
-    ('Sales Lead', 75000),
-    ('Sales Manager', 85000),
-    ('Software Engineer', 115000),
-    ('Sales Person', 50000),
-    ('Legal Team Lead', 140000),
-    ('Accountant', 110000)
+    ('Lead Engineer', 150000, 1),
+    ('Lawyer', 120000, 4),
+    ('Sales Lead', 75000, 3),
+    ('Sales Manager', 85000, 3),
+    ('Software Engineer', 115000, 1),
+    ('Sales Person', 50000, 3),
+    ('Legal Team Lead', 140000, 4),
+    ('Accountant', 110000, 2);
   
 
---Employee Seeds
-INSERT INTO employee (first_name, last_name)
+--Employee Seeds--
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-  ('Ronald', 'Firbank'),
-  ('Virginia', 'Woolf'),
-  ('Piers', 'Gaveston'),
-  ('Charles', 'LeRoi'),
-  ('Katherine', 'Mansfield'),
-  ('Dora', 'Carrington'),
-  ('Edward', 'Bellamy'),
-  ('Montague', 'Summers'),
-  ('Octavia', 'Butler'),
-  ('Unica', 'Zurn');
+  ('Ronald', 'Firbank', 3, 1),
+  ('Virginia', 'Woolf', 5, null),
+  ('Piers', 'Gaveston', 1, 4),
+  ('Charles', 'LeRoi', 4, 2),
+  ('Katherine', 'Mansfield', 5, null),
+  ('Dora', 'Carrington', 6, null),
+  ('Edward', 'Bellamy', 8, 3),
+  ('Montague', 'Summers', 2, 6),
+  ('Octavia', 'Butler', 7, 5),
+  ('Unica', 'Zurn', 6, null);
