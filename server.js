@@ -36,14 +36,14 @@ const promptUser = () => {
     const { choices } = answer;
 
     if (choices === 'View all departments') {
-      console.log('Showing all departments.')
+      allDepartments();
     }
 
     if (choices === 'View all roles') {
-      console.log('Showing all roles.')
+      allRoles();
     }
     if (choices === 'View all employees') {
-      console.log('Showing all employees.')
+      allEmployees();
     }
     if (choices === 'Add a role') {
       console.log('Please type a role to add.')
@@ -70,10 +70,50 @@ const promptUser = () => {
 //View all departments function
 allDepartments = () => {
   console.log('Showing all departments')
+      const sql = `SELECT department.id AS id, department.label AS department FROM department`;
+
+      db.query(sql, (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+        promptUser();
+      })
 }
+
+
 //View all roles function
+allRoles = () => {
+  console.log('Showing all roles.')
+  const sql = `SELECT roles.id, roles.title, department.label AS department
+                FROM roles
+                INNER JOIN department ON roles.department_id = department.id`;
+
+                db.query(sql, (err, rows) => {
+                  if (err) throw err;
+                  console.table(rows);
+                  promptUser();
+                })
+}
+
 
 //View all employees function
+allEmployees = () => {
+  console.log('Showing all employees')
+
+  //CONCAT to combine the two strings of first and last name
+  const sql = `SELECT employee.id, employee.first_name, employee.last_name,
+                roles.title, department.label AS department, roles.salary,
+                CONCAT (manager.first_name, " ", manager.last_name) AS manager FROM employee
+                LEFT JOIN roles ON employee.role_id = roles.id
+                LEFT JOIN department ON roles.department_id = department.id
+                LEFT JOIN employee manager ON employee.manager_id = manager.id`;
+
+                db.query(sql, (err, rows) => {
+                  if (err) throw err;
+                  console.table(rows);
+                  promptUser();
+                })
+}
+
 
 //Add a role function
 
