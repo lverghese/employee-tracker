@@ -52,9 +52,10 @@ const promptUser = () => {
       addEmployee();
     }
     if (choices === 'Update an employee role') {
-      console.log('Which employee would you like to update the role for?')
+      updateEmployee();
     }
     if (choices === 'No action') {
+         process.exit();
     }
   })
 
@@ -270,12 +271,12 @@ addEmployee = () => {
 updateEmployee = () => {
 
   const empGet = `SELECT * FROM employee`;
-
+  console.log(empGet);
   //gets list of employees for users to see
   db.query(empGet, (err, data) => {
     if (err) throw err;
 
-    const emps = data.map(({ first_name, last_name, id }) => ({ name: first_name + " " + last_name, value: id }));
+    const emps = data.map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id }));
 
     inquirer.prompt([
       
@@ -286,17 +287,48 @@ updateEmployee = () => {
         choices: emps
 
       }
+    ])
       .then(empPick => {
         //saving user pick
         const emp = empPick.employees;
-        console.log(emp)
-        
-        //create empty array for params
+        console.log(emp);
         const params = [];
+        params.push(emp);
+
+        const roleGet = `SELECT * FROM roles`;
+
+        db.query(roleGet, (err, data) => {
+          if (err) throw err;
+
+          const roleList = data.map(({ title, id }) => ({ name: title, value: id }));
+
+          inquirer.prompt([
+            {
+              type: 'list',
+              name: 'role',
+              message: "Please choose the employee's new role.",
+              choices: roleList
+            }
+          ])
+          .then(userChoice => {
+            const userRole = userChoice.role;
+            params.push(userRole);
+
+          })
+          .then(_ => {
+            const updateState = `UPDATE employee SET role_id = ${ params[1]} WHERE id = ${params[0]}`
+
+            db.query(updateState, (err, data) => {
+              if (err) throw err;
+              console.log('You updated the employee.')
+
+              allEmployees();
+            })
+          })
+        })
       })
-    ])
   })
-}
+};
 
 
 
