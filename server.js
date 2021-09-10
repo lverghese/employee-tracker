@@ -242,7 +242,16 @@ addEmployee = () => {
             const manager = mgrChoice.manager;
             picks.push(manager);
 
-            const sql = `INSERT`
+            const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                         VALUES (?, ?, ?, ?)`;
+
+            db.query(sql, picks, (err, result) => {
+              if (err) throw err;
+              console.log('You added ' + answer.fName + ' ' + answer.lName + ' as an employee.')
+
+              allEmployees();
+            })
+
           })
         })
         
