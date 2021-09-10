@@ -46,7 +46,7 @@ const promptUser = () => {
       allEmployees();
     }
     if (choices === 'Add a role') {
-      console.log('Please type a role to add.')
+      addRole();
     }
     if (choices === 'Add an employee') {
       console.log('What is the last name of the employee?')
@@ -55,7 +55,6 @@ const promptUser = () => {
       console.log('Which employee would you like to update the role for?')
     }
     if (choices === 'No action') {
-      
     }
   })
 
@@ -116,7 +115,45 @@ allEmployees = () => {
 
 
 //Add a role function
+addRole = () => {
 
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'typeRole',
+      message: 'Please type the role you would like to add.'
+
+    },
+    {
+      type: 'input',
+      name: 'typeSal',
+      message: 'What is the salary of this role?'
+    }
+   
+
+  ])
+  .then(answer => {
+    const params = [answer.typeRole, answer.typeSal]
+    console.log(params);
+    //need to get dept
+    const roleSql = `SELECT label, id FROM department`;
+    console.log(roleSql);
+    db.query(roleSql, (err, data) => {
+      if (err) throw err;
+
+      const dept = data.map(({ label}) => ({ label: label }));
+
+      inquirer.prompt([
+        {
+          type: 'list',
+          name: 'dept',
+          message: 'What department is this role in?',
+          choices: dept
+        }
+      ])
+    })
+  })
+}
 //Add an employee function
 
 //Update an employee role
