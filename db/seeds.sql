@@ -17,12 +17,11 @@ VALUES
     ('Accountant', 110000, 2);
   
 
---Employee Seeds--
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-  ('Ronald', 'Firbank', 3, 1),
+  ('Ronald', 'Firbank', 3, null),
   ('Virginia', 'Woolf', 5, null),
-  ('Piers', 'Gaveston', 1, 4),
+  ('Piers', 'Gaveston', 1, 2),
   ('Charles', 'LeRoi', 4, 2),
   ('Katherine', 'Mansfield', 5, null),
   ('Dora', 'Carrington', 6, null),
