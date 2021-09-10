@@ -29,11 +29,58 @@ const promptUser = () => {
         'Add a role',
         'Add an employee',
         'Update an employee role',
-        'No action'
-      ]
+        'No action' ]
     }
   ])
+  .then((answer) => {
+    const { choices } = answer;
+
+    if (choices === 'View all departments') {
+      console.log('Showing all departments.')
+    }
+
+    if (choices === 'View all roles') {
+      console.log('Showing all roles.')
+    }
+    if (choices === 'View all employees') {
+      console.log('Showing all employees.')
+    }
+    if (choices === 'Add a role') {
+      console.log('Please type a role to add.')
+    }
+    if (choices === 'Add an employee') {
+      console.log('What is the last name of the employee?')
+    }
+    if (choices === 'Update an employee role') {
+      console.log('Which employee would you like to update the role for?')
+    }
+    if (choices === 'No action') {
+      
+    }
+  })
+
+
+
+
+
 }
+
+
+
+//View all departments function
+allDepartments = () => {
+  console.log('Showing all departments')
+}
+//View all roles function
+
+//View all employees function
+
+//Add a role function
+
+//Add an employee function
+
+//Update an employee role
+
 
 
 
@@ -51,7 +98,5 @@ db.connect(err => {
     console.log('WELCOME TO THE EMPLOYEE TRACKER');
     promptUser();
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-
     });
   });
