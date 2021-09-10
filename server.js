@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./db/connection');
 const mysql = require('mysql2');
 const cTable = require('console.table');
+const inquirer = require('inquirer');
 
 // apiRoutes = require('./routes/apiRoutes')
 
@@ -14,7 +15,19 @@ app.use(express.json());
 
 
 
-//
+//inquirer prompt on startup
+const promptUser = () => {
+  inquirer.prompt ([
+    {
+      type: 'list',
+      name: 'choices',
+      message: 'Please choose an action.',
+      choices: [
+        
+      ]
+    }
+  ])
+}
 
 
 
