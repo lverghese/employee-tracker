@@ -135,10 +135,11 @@ addRole = () => {
   .then(answer => {
     const params = [answer.typeRole, answer.typeSal]
     console.log(params);
-    //need to get dept
-    const roleSql = `SELECT label, id FROM department`;
-    console.log(roleSql);
-    db.query(roleSql, (err, data) => {
+
+    //need to get depts from the table
+    const deptGet = `SELECT label, id FROM department`;
+    console.log(deptGet);
+    db.query(deptGet, (err, data) => {
       if (err) throw err;
 
       //displays depts to choose from for user
@@ -196,6 +197,60 @@ addEmployee = () => {
   .then(answer => {
     const picks = [answer.fName, answer.lName]
     console.log(picks);
+
+    //need to get roles from role table
+    const rolesGet = `SELECT title, id FROM roles`;
+    console.log(rolesGet);
+    db.query(rolesGet, (err, data) => {
+      if (err) throw err;
+
+      //holds roles to display for user
+      const roles = data.map(({ title, id }) => ({ name: title, value: id }));
+
+      //prompt user to choose which role
+      inquirer.prompt([
+        {
+          type: 'list',
+          name: 'role',
+          message: "Please choose what the employee's role is.",
+          choices: roles
+        }
+      ])
+      .then(userChoice => {
+        const role = userChoice.role;
+        picks.push(role);
+
+        const manSql = 'SELECT * FROM employee';
+
+        db.query(manSql, (err, data) => {
+          if (err) throw err;
+
+          //to get list of employees that are a manager
+          const mgmt = data.map(({ id, first_name, last_name}) => ({ name: first_name + " " + last_name, value: id}));
+          
+          inquirer.prompt([
+
+            {
+              type: 'list',
+              name: 'manager',
+              message: "Who is the employee's manager?",
+              choices: mgmt
+
+            }
+          ])
+          .then(mgrChoice => {
+            const manager = mgrChoice.manager;
+            picks.push(manager);
+
+            const sql = `INSERT`
+          })
+        })
+        
+      }) 
+    })
+
+
+
   })
 }
 
