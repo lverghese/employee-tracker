@@ -141,16 +141,25 @@ addRole = () => {
     db.query(roleSql, (err, data) => {
       if (err) throw err;
 
-      const dept = data.map(({ label}) => ({ label: label }));
+      //displays depts to choose from for user
+      const depts = data.map(({ label, id }) => ({ name: label, value: id }));
 
       inquirer.prompt([
         {
           type: 'list',
           name: 'dept',
           message: 'What department is this role in?',
-          choices: dept
+          choices: depts
         }
       ])
+
+      .then(userChoice => {
+        const dept = userChoice.dept;
+        console.log(dept);
+        params.push(dept);
+
+
+      })
     })
   })
 }
