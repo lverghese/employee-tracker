@@ -49,7 +49,7 @@ const promptUser = () => {
       addRole();
     }
     if (choices === 'Add an employee') {
-      console.log('What is the last name of the employee?')
+      addEmployee();
     }
     if (choices === 'Update an employee role') {
       console.log('Which employee would you like to update the role for?')
@@ -174,7 +174,33 @@ addRole = () => {
     })
   })
 }
+
+
+
+
 //Add an employee function
+addEmployee = () => {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'fName',
+      message: 'Please type the first name of the employee.'
+
+    },
+    {
+      type: 'input',
+      name: 'lName',
+      message: 'Please type the last name of the employee'
+    }
+  ])
+  .then(answer => {
+    const picks = [answer.fName, answer.lName]
+    console.log(picks);
+  })
+}
+
+
+
 
 //Update an employee role
 
