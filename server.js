@@ -226,7 +226,7 @@ addEmployee = () => {
           if (err) throw err;
 
           //to get list of employees that are a manager
-          const mgmt = data.map(({ id, first_name, last_name}) => ({ name: first_name + " " + last_name, value: id}));
+          const mgmt = data.map(({ id, first_name, last_name}) => ({ name: first_name + " " + last_name, value: id }));
           
           inquirer.prompt([
 
@@ -267,7 +267,36 @@ addEmployee = () => {
 
 
 //Update an employee role
+updateEmployee = () => {
 
+  const empGet = `SELECT * FROM employee`;
+
+  //gets list of employees for users to see
+  db.query(empGet, (err, data) => {
+    if (err) throw err;
+
+    const emps = data.map(({ first_name, last_name, id }) => ({ name: first_name + " " + last_name, value: id }));
+
+    inquirer.prompt([
+      
+      {
+        type: 'list',
+        name: 'employees',
+        message: 'Which employee would you like to update?',
+        choices: emps
+
+      }
+      .then(empPick => {
+        //saving user pick
+        const emp = empPick.employees;
+        console.log(emp)
+        
+        //create empty array for params
+        const params = [];
+      })
+    ])
+  })
+}
 
 
 
