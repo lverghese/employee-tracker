@@ -55,6 +55,7 @@ const promptUser = () => {
       updateEmployee();
     }
     if (choices === 'No action') {
+      console.log("Thank you for using the employee tracker!")
          process.exit();
     }
   })
